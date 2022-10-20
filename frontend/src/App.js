@@ -1,12 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello React</h1>
-      </header>
+    <div>
+      <h3>Iniciando Projeto:</h3>
+      <h1><strong>Loja Profiça</strong></h1>
     </div>
   );
 }
