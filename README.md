@@ -1,2 +1,2 @@
-# django_react_ecommerce_project
+# Django React Ecommerce Project
 A ecommerce project build with Django Rest Framework in backend and React in frontend
