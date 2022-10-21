@@ -8,7 +8,7 @@ import { Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap'
 
 function ProductScreen() {
     const product_id_in_query = useParams().id
-    const product = products.find((product) => product._id == product_id_in_query)
+    const product = products.find((product) => product._id === product_id_in_query)
     return (
         <div>
             <Link to="/" className='btn btn-light my-3'>Voltar</Link>
@@ -71,7 +71,7 @@ function ProductScreen() {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                <Button className='btn-block' disabled={product.countInStock == 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
+                                <Button className='btn-block' disabled={product.countInStock === 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
                             </ListGroup.Item>
 
                         </ListGroup>
