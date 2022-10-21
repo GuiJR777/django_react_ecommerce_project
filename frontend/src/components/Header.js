@@ -12,7 +12,7 @@ function Header() {
             <Navbar.Brand as={Link} to="/">Loja Profiça</Navbar.Brand>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Collapse id="basic-navbar-nav" className="header-links">
               <Nav className="mr-auto">
 
                 <Nav.Link as={Link} to="/cart"><i className="fas fa-shopping-cart"></i> Carrinho</Nav.Link>
