@@ -37,3 +37,13 @@ To start Django server:
 ```shell
 python manage.py runserver
 ```
+
+To install axios:
+```shell
+npm install axios
+```
+
+To install django-cors-headers:
+```shell
+pip install django-cors-headers
+```
