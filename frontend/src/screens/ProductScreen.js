@@ -38,7 +38,7 @@ function ProductScreen() {
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <Rating value={product.rating} number_of_reviews={product.numReviews} color={'#f8e825'}/>
+                            <Rating value={product.rating} number_of_reviews={product.number_of_reviews} color={'#f8e825'}/>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
@@ -75,7 +75,7 @@ function ProductScreen() {
                                     <Col>Status:</Col>
                                     <Col>
                                         {
-                                            product.countInStock > 1
+                                            product.count_in_stock > 1
                                             ? "Em Estoque"
                                             : "Produto Esgotado"
                                         }
@@ -84,7 +84,7 @@ function ProductScreen() {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                <Button className='btn-block' disabled={product.countInStock === 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
+                                <Button className='btn-block' disabled={product.count_in_stock === 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
                             </ListGroup.Item>
 
                         </ListGroup>
