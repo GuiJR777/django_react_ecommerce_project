@@ -2,8 +2,9 @@ import React from 'react'
 
 
 function get_star_icon(value, color, index){
-    var star = index + 1
-    return <i style={{ color }} className={
+    const star = index + 1
+    const unique_id = `star-${star}`
+    return <i id={{ unique_id }} style={{ color }} className={
         value >= star
         ? 'fas fa-star'
         : value >= star - 0.5

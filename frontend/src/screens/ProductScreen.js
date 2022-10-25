@@ -1,14 +1,27 @@
-import React from 'react'
-
-import Rating from '../components/Rating'
-import products from '../products'
-
+import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap'
 
+import Rating from '../components/Rating'
+import axios from 'axios'
+
+
+const product_endpoint = '/api/products/'
+
 function ProductScreen() {
     const product_id_in_query = useParams().id
-    const product = products.find((product) => product._id === product_id_in_query)
+    const [product, setProduct] = useState([])
+
+    useEffect(() => {
+        async function fetchProduct(){
+        const { data } = await axios.get(`${product_endpoint}${product_id_in_query}`)
+        setProduct(data)
+        }
+
+        fetchProduct()
+
+    }, [])
+
     return (
         <div>
             <Link to="/" className='btn btn-light my-3'>Voltar</Link>
@@ -25,7 +38,7 @@ function ProductScreen() {
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <Rating value={product.rating} number_of_reviews={product.numReviews} color={'#f8e825'}/>
+                            <Rating value={product.rating} number_of_reviews={product.number_of_reviews} color={'#f8e825'}/>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
@@ -62,7 +75,7 @@ function ProductScreen() {
                                     <Col>Status:</Col>
                                     <Col>
                                         {
-                                            product.countInStock > 1
+                                            product.count_in_stock > 1
                                             ? "Em Estoque"
                                             : "Produto Esgotado"
                                         }
@@ -71,7 +84,7 @@ function ProductScreen() {
                             </ListGroup.Item>
 
                             <ListGroup.Item>
-                                <Button className='btn-block' disabled={product.countInStock === 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
+                                <Button className='btn-block' disabled={product.count_in_stock === 0} type='button' ><i className="fas fa-shopping-cart"></i> Adicionar ao Carrinho</Button>
                             </ListGroup.Item>
 
                         </ListGroup>
