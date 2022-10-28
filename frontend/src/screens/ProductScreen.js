@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap'
-
+import { listProductDetails } from '../actions/productActions'
 import Rating from '../components/Rating'
-import axios from 'axios'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 
-const product_endpoint = '/api/products/'
+function get_loading_component() {
+    return <Loader />
+}
 
-function ProductScreen() {
-    const product_id_in_query = useParams().id
-    const [product, setProduct] = useState([])
+function get_error_message(error) {
+    switch (error.status) {
+        case 404:
+            return "Página não encontrada"
 
-    useEffect(() => {
-        async function fetchProduct(){
-        const { data } = await axios.get(`${product_endpoint}${product_id_in_query}`)
-        setProduct(data)
-        }
+        default:
+            return `Erro ${error.status}: ${error.statusText}`
+    }
+}
 
-        fetchProduct()
+function get_error_component(error) {
+    return <Message variant='danger'> {get_error_message(error)} </Message>
+}
 
-    }, [])
-
-    return (
-        <div>
-            <Link to="/" className='btn btn-light my-3'>Voltar</Link>
-            <Row>
+function get_product_details_page(product) {
+    return <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
                 </Col>
@@ -38,7 +40,7 @@ function ProductScreen() {
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <Rating value={product.rating} number_of_reviews={product.number_of_reviews} color={'#f8e825'}/>
+                            <Rating value={product.rating} number_of_reviews={product.number_of_reviews} color={'#f8e825'} />
                         </ListGroup.Item>
 
                         <ListGroup.Item>
@@ -76,8 +78,8 @@ function ProductScreen() {
                                     <Col>
                                         {
                                             product.count_in_stock > 1
-                                            ? "Em Estoque"
-                                            : "Produto Esgotado"
+                                                ? "Em Estoque"
+                                                : "Produto Esgotado"
                                         }
                                     </Col>
                                 </Row>
@@ -92,6 +94,38 @@ function ProductScreen() {
                     </Card>
                 </Col>
             </Row>
+}
+
+
+function ProductScreen() {
+    const dispatch = useDispatch()
+    const product_id_in_query = useParams().id
+    const productDetails = useSelector(state => state.productDetails)
+    const { loading, error, product } = productDetails
+
+    useEffect(() => {
+        dispatch(listProductDetails(product_id_in_query))
+    }, [dispatch    ])
+
+    return (
+        <div>
+            <Link to="/" className='btn btn-light my-3'>Voltar</Link>
+            {
+                // SE:
+                loading
+
+                // ENTÃO:
+                ? get_loading_component()
+
+                // SE NÃO SE:
+                : error
+
+                // ENTÃO:
+                ? get_error_component(error)
+
+                // CASO CONTRÁRIO:
+                : get_product_details_page(product)
+            }
         </div>
     )
 }
