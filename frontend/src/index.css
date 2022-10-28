@@ -13,3 +13,7 @@ h3{
 .header-links{
     justify-content: end;
 }
+
+.message-alert{
+    text-align: center;
+}

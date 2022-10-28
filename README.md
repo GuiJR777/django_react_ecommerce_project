@@ -47,3 +47,19 @@ To install django-cors-headers:
 ```shell
 pip install django-cors-headers
 ```
+
+To create new django migrations:
+```shell
+python manage.py makemigration
+```
+
+To apply new django migrations:
+```shell
+python manage.py migrate
+```
+
+To install Redux:
+```shell
+npm install redux react-redux redux-thunk redux-devtools-extension
+```
+
