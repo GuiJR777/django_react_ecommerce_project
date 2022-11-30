@@ -25,6 +25,7 @@ function CartScreen() {
                     <Form.Control
                     as="select"
                     value={item.qty}
+                    className="qty-selector"
                     onChange={(e) => dispatch(addToCart(item.product, e.target.value))}
                     >
                         {get_product_count_options(item)}

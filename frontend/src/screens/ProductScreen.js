@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams, useNavigate } from 'react-router-dom'
+import { Link, useParams, useNavigate, createSearchParams } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Button, Card, Form } from 'react-bootstrap'
 import { listProductDetails } from '../actions/productActions'
 import Rating from '../components/Rating'
@@ -106,6 +106,7 @@ function get_product_details_page(product, qty, setQty, add_to_cart_handler) {
                                             <Form.Control
                                             as="select"
                                             value={qty}
+                                            className="qty-selector"
                                             onChange={(e) => setQty(e.target.value)}
                                             >
                                                 {get_product_count_options(product)}
@@ -147,8 +148,12 @@ function ProductScreen() {
         dispatch(listProductDetails(product_id_in_query))
     }, [dispatch    ])
 
+    const params = {qty:qty}
     const add_to_cart_handler = () => {
-        navigate(`/cart/${product_id_in_query}`, {state: qty})
+        navigate({
+            pathname: `/cart/${product_id_in_query}`,
+            search: `?${createSearchParams(params)}`,
+          });
     }
 
     return (
